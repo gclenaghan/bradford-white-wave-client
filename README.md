@@ -49,7 +49,8 @@ await client.get_energy("MAC_ADDRESS", "hourly")
 await client.set_temperature("MAC_ADDRESS", 120)
 
 # Set mode
-await client.set_mode("MAC_ADDRESS", 0)
+from bradford_white_wave_client.models import BradfordWhiteMode
+await client.set_mode("MAC_ADDRESS", BradfordWhiteMode.HEAT_PUMP)
 ```
 
 ## Installation

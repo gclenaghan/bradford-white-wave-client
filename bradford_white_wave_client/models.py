@@ -1,6 +1,15 @@
 from datetime import datetime
-from typing import Optional, Union
+from typing import Optional, Union, List
+from enum import IntEnum
 from pydantic import BaseModel, Field
+
+class BradfordWhiteMode(IntEnum):
+    """Enum for water heater operation modes."""
+    HYBRID = 1
+    HYBRID_PLUS = 2
+    HEAT_PUMP = 3
+    ELECTRIC = 4
+    VACATION = 5
 
 class DeviceStatus(BaseModel):
     """Model for device status response."""
@@ -11,7 +20,7 @@ class DeviceStatus(BaseModel):
     
     # Status fields (nullable since they might be missing in 'list' view)
     setpoint_fahrenheit: Optional[int] = Field(None, alias="setpointFahrenheit")
-    mode: Optional[Union[str, int]] = None
+    mode: Optional[str] = None
     heat_mode_value: Optional[int] = Field(None, alias="heatModeValue")
     request_id: Optional[str] = Field(None, alias="requestId")
     
