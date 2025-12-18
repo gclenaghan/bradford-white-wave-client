@@ -10,10 +10,15 @@ CLIENT_ID = "7899415d-1c23-46d8-8a79-4c15ed5f7f22"
 SCOPE = ["openid", "email", "offline_access", "profile"]
 REDIRECT_URI = "com.bradfordwhiteapps.bwconnect://oauth/redirect"
 
-# TODO: The exact B2C Authorize URL was not provided.
-# Typical format: https://<tenant>.b2clogin.com/<tenant>.onmicrosoft.com/<policy>/oauth2/v2.0/authorize
-# We need to find the Tenant and Policy.
-AUTH_URL = None 
+# B2C URLs
+TENANT_DOMAIN = "consumer.bradfordwhiteapps.com"
+TENANT_NAME = "consumer.bradfordwhiteapps.com" # Sometimes it's <name>.onmicrosoft.com, but URL shows this
+POLICY = "B2C_1_Wave_SignIn"
+
+AUTH_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/oauth2/v2.0/authorize"
+TOKEN_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/oauth2/v2.0/token"
+SELF_ASSERTED_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/SelfAsserted"
+CONFIRMED_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/api/CombinedSigninAndSignup/confirmed"
 
 # API Endpoints
 ENDPOINT_LIST_DEVICES = "/wave/getApplianceList"
