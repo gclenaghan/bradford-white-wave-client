@@ -17,8 +17,6 @@ POLICY = "B2C_1_Wave_SignIn"
 
 AUTH_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/oauth2/v2.0/authorize"
 TOKEN_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/oauth2/v2.0/token"
-SELF_ASSERTED_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/SelfAsserted"
-CONFIRMED_URL = f"https://{TENANT_DOMAIN}/{TENANT_NAME}/{POLICY}/api/CombinedSigninAndSignup/confirmed"
 
 # API Endpoints
 ENDPOINT_LIST_DEVICES = "/wave/getApplianceList"

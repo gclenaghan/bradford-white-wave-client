@@ -20,37 +20,44 @@ _LOGGER = logging.getLogger(__name__)
 class BradfordWhiteClient:
     """Async client for Bradford White WaveAPI."""
 
-    def __init__(self, email: str = None, password: str = None, refresh_token: str = None):
-        if not refresh_token and not (email and password):
-            raise ValueError("Must provide either email/password or a refresh_token")
-            
-        self.auth = BradfordWhiteAuth(email or "", password or "")
+    def __init__(self, refresh_token: str = None):
+        """Initialize the client."""
+        self.auth = BradfordWhiteAuth()
         self._session: Optional[aiohttp.ClientSession] = None
         self._access_token: Optional[str] = None
         self._refresh_token: Optional[str] = refresh_token
 
+    def get_authorization_url(self, state: str = "init", nonce: str = "init") -> str:
+        """Generate the authorization URL for the user."""
+        return self.auth.generate_auth_url(state, nonce)
+        
+    async def authenticate_with_code(self, url: str) -> None:
+        """Authenticate using a redirect URL."""
+        code = self.auth.parse_redirect_url(url)
+        tokens = await self.auth.exchange_code_for_token(code)
+        
+        self._access_token = tokens.get("access_token", tokens.get("id_token"))
+        self._refresh_token = tokens.get("refresh_token")
+        
+        if not self._refresh_token:
+            raise BradfordWhiteConnectError("No refresh_token returned from exchange.")
+            
     async def authenticate(self):
-        """Authenticate with the API."""
+        """Ensure valid access token."""
         try:
-             # If we have a refresh token but no access token, try refreshing first
-             if self._refresh_token and not self._access_token:
+             # If we have a refresh token, verify/refresh it
+             if self._refresh_token:
                  _LOGGER.info("Using provided refresh token")
                  tokens = await self.auth.refresh_tokens(self._refresh_token)
-                 # Some B2C flows return id_token instead of access_token
+                 
                  self._access_token = tokens.get("access_token", tokens.get("id_token"))
                  self._refresh_token = tokens.get("refresh_token", self._refresh_token)
                  
                  if not self._access_token:
                      raise BradfordWhiteConnectError("No access_token or id_token returned from refresh")
                  return
-
-             # Otherwise full login
-             if self.auth.email and self.auth.password:
-                tokens = await self.auth.authenticate()
-                self._access_token = tokens.get("access_token", tokens.get("id_token"))
-                self._refresh_token = tokens.get("refresh_token")
              else:
-                 raise BradfordWhiteConnectError("No credentials for full authentication")
+                 raise BradfordWhiteConnectError("No refresh token provided. Please use get_authorization_url() and authenticate_with_code() first.")
                  
         except Exception as e:
             raise BradfordWhiteConnectError(f"Authentication failed: {e}")
