@@ -19,8 +19,9 @@ Some manual steps are required to authenticate with the API, since for the time 
    ```
 2. The script will generate a login URL. Open it in your browser.
 3. Log in with your Bradford White Wave credentials.
-4. The browser will recieve a redirect, but (at least for Firefox) it will fail to follow this redirect and show an error page.
+4. The browser will receive a redirect, but (at least for Firefox) it will fail to follow this redirect and show an error page.
 5. Open the network tab in your browser's development tools and refresh the page. You'll see the failed redirect response. Look for the location: header starting with `com.bradfordwhiteapps.bwconnect://` in the response.
+![Redirect Example](redirect_example.png)
 6. Copy the full url and paste it back into the script terminal.
 7. The script will save your credentials to `.credentials.json` so future runs of the script will skip the above steps (this file is in .gitignore).
 

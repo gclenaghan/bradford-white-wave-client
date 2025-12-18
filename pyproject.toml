@@ -5,12 +5,12 @@ build-backend = "hatchling.build"
 [project]
 name = "bradford_white_wave_client"
 dynamic = ["version"]
-description = "Async Python client for Bradford White WaveAPI"
+description = "Client for Bradford White Wave API"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
 authors = [
-  { name = "Your Name", email = "your.email@example.com" },
+  { name = "Graham Clenaghan", email = "gclenaghan@gmail.com" },
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -26,8 +26,6 @@ classifiers = [
 dependencies = [
   "aiohttp",
   "pydantic",
-  "yarl",
-  "beautifulsoup4", # For parsing the login page
 ]
 
 [project.urls]
