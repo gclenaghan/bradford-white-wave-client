@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bradford_white_wave_client"
+dynamic = ["version"]
+description = "Async Python client for Bradford White WaveAPI"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [
+  { name = "Your Name", email = "your.email@example.com" },
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Home Automation",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+  "aiohttp",
+  "pydantic",
+  "yarl",
+  "beautifulsoup4", # For parsing the login page
+]
+
+[project.urls]
+Homepage = "https://github.com/gclenaghan/bradford-white-wave-client"
+
+[tool.hatch.version]
+path = "bradford_white_wave_client/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/bradford_white_wave_client",
+]
