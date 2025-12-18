@@ -125,7 +125,7 @@ class BradfordWhiteClient:
     async def list_devices(self) -> List[DeviceStatus]:
         """List all devices on the account."""
         if not self._account_id:
-            raise BradfordWhiteConnectError("Account ID not available.")
+            await self.authenticate()
 
         params = {"username": self._account_id}
         data = await self._request("GET", ENDPOINT_LIST_DEVICES, params=params)
