@@ -2,7 +2,6 @@
 
 # API Configuration
 BASE_URL = "https://gw.prdapi.bradfordwhiteapps.com"
-USER_AGENT = "Dart/3.8 (dart:io)"
 
 # Authentication Configuration
 CLIENT_ID = "7899415d-1c23-46d8-8a79-4c15ed5f7f22"
