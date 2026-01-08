@@ -38,3 +38,15 @@ path = "bradford_white_wave_client/__init__.py"
 include = [
   "/bradford_white_wave_client",
 ]
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-asyncio",
+  "aioresponses",
+  "pytest-cov",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
